@@ -1,0 +1,43 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <regex>
+#include <string>
+
+using namespace std;
+
+
+class perfCollector{
+  ifstream procstat;
+  void getCPUData();
+public:
+  void getData();  
+};
+  
+void perfCollector::getData(){
+  getCPUData();
+};
+
+void perfCollector::getCPUData(){
+  string line;
+  string word;
+  stringstream ss;
+  regex re;
+  procstat.open("/proc/stat");
+  while(procstat.good()){
+    procstat >> word; //get first word 
+    if(word=="cpu"){
+      getline(procstat,line);
+      regex_iterator<string::iterator> rit(line.
+      cout << "Cpu : " << line << endl;
+    }    
+  }
+  procstat.close();
+};
+
+int main(){
+  perfCollector perf;
+  perf.getData();
+  perf.getData();
+  cout << "hey" << endl;
+}

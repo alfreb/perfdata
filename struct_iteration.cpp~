@@ -1,0 +1,13 @@
+
+
+#include <iostream>
+
+struct data{
+  string name;
+  int age;
+  float height;
+}
+
+int main(){
+
+}
