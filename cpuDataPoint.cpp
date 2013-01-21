@@ -10,10 +10,13 @@ cpuDataPoint::cpuDataPoint(){
   sample_time=time(0);
   procstat.open("/proc/stat");
   //  cout << "Started at " << sample_time << " ";
+  if(!procstat.is_open())
+    cout << "Could not open /proc/stat" << endl; exit(0);
+  
   while(procstat.good()){
     procstat >> firstWord; //get first word 
     if(firstWord.substr(0,3)=="cpu"){
-      //Create a cpu-sample, add it to the vector
+	  //Create a cpu-sample, add it to the vector
       //This requires the couSample constructor to consume a whole line from procstat
       cpuSamples.push_back(cpuSample(procstat,firstWord));
     }else{
