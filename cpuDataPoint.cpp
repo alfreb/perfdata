@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdlib.h>
 #include "cpuDataPoint.h"
 
 using namespace perfdata;
@@ -9,10 +10,13 @@ cpuDataPoint::cpuDataPoint(){
   string rest;
   sample_time=time(0);
   procstat.open("/proc/stat");
-  //  cout << "Started at " << sample_time << " ";
-  if(!procstat.is_open())
-    cout << "Could not open /proc/stat" << endl; exit(0);
-  
+  cout << "Started at " << sample_time << endl;
+  if(!procstat.is_open()){
+    cout << "Could not open /proc/stat" << endl; 
+    exit(0);
+  }
+  cout << "Reading /proc/stat" << endl;
+
   while(procstat.good()){
     procstat >> firstWord; //get first word 
     if(firstWord.substr(0,3)=="cpu"){
