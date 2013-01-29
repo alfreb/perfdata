@@ -23,18 +23,33 @@ class perfCollector{
   //cpuDataPoints cpu;
   //memDataPoints mem
 public:
-  void getData();  
+  void getData(bool=false);  
 };
   
-void perfCollector::getData(){
+void perfCollector::getData(bool withTitles){
   cpuDataPoint cpuData;
   memDataPoint memData;
+  if(withTitles)
+    cout << cpuData.titles()
+	 << memData.titles() << endl;
+  
+  cout << cpuData.toTabsep() 
+       << memData.toTabsep() << endl;
 };
 
-int main(){
-  cout << "Getting performance data" << endl;
+int main(int argc,char** argv){
+  bool withTitles=false;
+  //  cout << "Getting performance data" << endl;
+  if(argc>1){   
+    if(string(argv[1])==string("-T")){
+      //  cout << "With titles" << endl;
+      withTitles=true;
+    }else{
+      //cout << "NO titles " << endl;
+    }
+  }
   perfCollector perf;
-  perf.getData();
+  perf.getData(withTitles);  
   //perf.getData();
 
 }

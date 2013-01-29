@@ -23,6 +23,8 @@ namespace perfdata{
   public:
     //All data is read from stream - no stream no sample
     cpuSample(std::ifstream &fs,std::string name);    
+    std::string toTabsep(std::string="\t");
+    std::string titles(std::string="\t");
   };
 
 

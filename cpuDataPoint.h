@@ -29,6 +29,8 @@ class cpuDataPoint{
   
 public:
   cpuDataPoint();
+  std::string titles(std::string="\t");
+  std::string toTabsep(std::string="\t");
 };
 
 
