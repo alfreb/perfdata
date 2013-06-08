@@ -60,6 +60,12 @@ string memDataPoint::toTabsep(std::string sep){
     }
   return sstr.str();  
 }
+
+float memDataPoint::pctUsed(){
+  double total(propMap["MemTotal:"]);
+  return double(total-propMap["MemFree:"])/total;
+}
+
 /*
 std::string memDataPoint::toTabsep(std::string sep){
   stringstream sstr;

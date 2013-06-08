@@ -21,7 +21,7 @@ cpuDataPoint::cpuDataPoint(){
     if(firstWord.substr(0,3)=="cpu"){
       //Create a cpu-sample, add it to the vector
       //This requires the couSample constructor to consume a whole line from procstat
-      cpuSamples.push_back(cpuSample(procstat,firstWord));
+      cpuSamples.push_back(cpuSample(firstWord,&procstat));
     }else{
       
       //Here the other properties should be gathered...

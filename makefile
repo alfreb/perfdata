@@ -3,6 +3,12 @@ OBJPATH=./
 static: libperfdata remove_objects
 	g++ perfdata.cpp libperfdata.so -o perfdata
 
+totals:	cpuSample2 memDataPoint
+	g++ perftotals.cpp cpuSample.o memDataPoint.o -o perftotals
+
+
+mini: cpuSample
+	g++ perfdata_mini.cpp cpuSample.o -o perfdata_mini
 
 dynamic: libperfdata remove_objects
 	g++ -L. -lperfdata perfdata.cpp -o perfdata
@@ -16,6 +22,9 @@ cpuDataPoint: cpuSample
 
 cpuSample:
 	g++ -c -fPIC cpuSample.cpp -o cpuSample.o
+
+cpuSample2:
+	g++ -c -fPIC cpuSample2.cpp -o cpuSample.o
 
 memDataPoint: 
 	g++ -c -fPIC memDataPoint.cpp -o memDataPoint.o

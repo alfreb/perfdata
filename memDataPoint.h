@@ -32,7 +32,7 @@ namespace perfdata{
     memDataPoint();
     std::string toTabsep(std::string="\t");
     std::string titles(std::string="\t");
-    
+    float pctUsed();
   };
 
 }//End namespace perfdata
