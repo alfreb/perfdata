@@ -6,6 +6,8 @@ static: libperfdata remove_objects
 totals:	cpuSample2 memDataPoint
 	g++ perftotals.cpp cpuSample.o memDataPoint.o -o perftotals
 
+test:	cpuSample2 memDataPoint
+	g++ perfSampler.cpp cpuSample.o memDataPoint.o -o test_perfsampler
 
 mini: cpuSample
 	g++ perfdata_mini.cpp cpuSample.o -o perfdata_mini

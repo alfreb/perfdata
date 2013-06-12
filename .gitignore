@@ -3,3 +3,5 @@
 *.o
 *.out
 perfdata
+test_perfsampler
+perftotals

@@ -12,7 +12,7 @@ float cpuSample::pctUsed(cpuSample& s1, cpuSample& s2){
 
   workDone=s2.sumWorkJiffies()-s1.sumWorkJiffies();
   jiffiesPassed=s2.sumTotalJiffies()-s1.sumTotalJiffies();
-  return double(workDone)/(double)jiffiesPassed;
+  return (double(workDone)/(double)jiffiesPassed)*100;
 
 }
 
