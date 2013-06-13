@@ -2,42 +2,43 @@
 
 #include "cpuSample2.h"
 
+#include <fstream>
+#include <QObject>
+#include <QThread>
+#include <vector>
+
+#include "sample.h"
+#include "outstream.h"
+
 namespace perfdata{
 
-  class sample{  
-    cpuSample cpu;
-    memDataPoint mem;
-    
-    int sampleInterval;
-    
-    //Aggregated/computed data points
-    int x;
-    float y1; //CPU
-    float y2; //Mem OR y1_ERROR, for multisample
+class perfsampler : public QThread{
 
-  public:
-    sample(int interval=1):cpu(),mem(){
-      x=time(0);
-      sleep(interval);
-      y=cpuSample::pctUsed(cpu,cpuSample());
-    }
-  
-    friend ostream& operator<<(&ostream s,singleSample s);
-  
+    Q_OBJECT
+
+    std::vector<sample> cpuSamples;
+    std::vector<sample> memSamples;
+    std::vector<sample> qosSamples;
+
+    std::ofstream outFile;
+    std::ostream* out;
+
+    int sampleRate;
+    std::string logfile;
+
+protected:
+    virtual void run();
+
+public:
+    perfsampler(bool log=false);
+    ~perfsampler();
+
+signals:
+    void samplingDone();
+
+public slots:
+
+
   };
-  
-  static string sep="\t";
 
-  ostream& operator<<(&ostream s,singleSample s){
-    s << x << sep << y1 << y2;
-    return s;
-  };
-
-  
-  class perfsampler{    
-    
-  public:
-    perfsampler();        
-    
-  }
 }

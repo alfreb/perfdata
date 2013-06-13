@@ -26,7 +26,7 @@ namespace perfdata{
     unsigned long swapCached;
     unsigned long active;
     unsigned long inactive;    
-    unsigned long* props[PROP_COUNT];
+    //unsigned long* props[PROP_COUNT];
     std::map<std::string,long> propMap;
   public:
     memDataPoint();

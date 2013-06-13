@@ -13,9 +13,9 @@ const std::string memDataPoint::prop_names[prop_count]=
   {"MemTotal","MemFree","Buffers","Cached","SwapCached",
    "Active","Inactive"};
 
-memDataPoint::memDataPoint():
-  props{&memTotal,&memFree,&buffers,&cached,
-	&swapCached,&active,&inactive}
+memDataPoint::memDataPoint()
+    //:props{&memTotal,&memFree,&buffers,&cached,
+   // &swapCached,&active,&inactive}
 {
 
   //Linking introspection - if C++11 initialization NOT OK
