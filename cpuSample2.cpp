@@ -60,7 +60,13 @@ unsigned long cpuSample::sumTotalJiffies()
   
 unsigned long cpuSample::sumWorkJiffies()
 {
-    return props[perfdata::USER]+props[perfdata::NICE]+props[perfdata::SYSTEM]+props[perfdata::USER_RT]+props[perfdata::SYSTEM_RT];
+    unsigned long sum(0);
+    sum+=props[perfdata::USER];
+    sum+=props[perfdata::NICE];
+    sum+=props[perfdata::SYSTEM];
+    sum+=props[perfdata::USER_RT];
+    sum+=props[perfdata::SYSTEM_RT];
+    return sum;
 }
   
 string cpuSample::titles(string sep){
