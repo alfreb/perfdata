@@ -9,6 +9,9 @@ using namespace std;
 string scalingSample::sep="\t";
 string scalingSample::header="Time"+sep+"Cpu_%"+sep+"Mem_%";
 
+string scalingSample::colSep(){
+    return sep;
+}
 
 scalingSample::scalingSample(int _vm_count,int interval):
     sampleInterval(interval),vm_count(_vm_count),

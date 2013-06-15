@@ -50,6 +50,8 @@ public:
     float getMemPct();
     float getMemError();
 
+    static std::string colSep();
+
     friend std::ostream& operator<<(std::ostream&,scalingSample&);
 };
 

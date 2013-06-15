@@ -59,13 +59,13 @@ void perfsampler::dumpData_separateFiles(string description){
         s=&(*it);
 
         //CPU Data
-        cpuStream << s->getVmCount()
-                  << s->getCpuPct()
+        cpuStream << s->getVmCount() << scalingSample::colSep()
+                  << s->getCpuPct() << scalingSample::colSep()
                   << s->getCpuError()
                   << endl;
 
         //Memory data
-        memStream << s->getVmCount()
+        memStream << s->getVmCount() << scalingSample::colSep()
                   << s->getMemPct()
                   //<< s->getMemError()>0?s->getMemError():""
                   << endl;
