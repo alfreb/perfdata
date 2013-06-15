@@ -3,6 +3,7 @@
 #include "cpuSample2.h"
 
 #include <fstream>
+#include <iostream>
 #include <QObject>
 #include <QThread>
 #include <vector>
@@ -27,11 +28,15 @@ class perfsampler : public QThread{
     std::string logfile;
 
 protected:
+    //Call with start
     virtual void run();
 
 public:
     perfsampler(bool log=false);
     ~perfsampler();
+    int numberOfSamples();
+    void printSamples(std::ostream* openStream);
+
 
 signals:
     void samplingDone();

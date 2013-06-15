@@ -32,7 +32,7 @@ class sample
 
 public:
 
-    void multiSampleCpu(int samples=20);
+    void multiSampleCpu(int samples=5);
     void multiSampleMem(int samples=20);
 
     sample(int interval=1);

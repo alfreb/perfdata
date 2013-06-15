@@ -23,6 +23,17 @@ perfsampler::perfsampler(bool log):
         out=&cout;
 }
 
+int perfsampler::numberOfSamples(){
+    return cpuSamples.size();
+}
+
+void perfsampler::printSamples(ostream* openStream){
+    vector<sample>::iterator it;
+    for(it=cpuSamples.begin();it!=cpuSamples.end();++it){
+        *openStream << *it << endl;
+    }
+}
+
 perfsampler::~perfsampler()
 {
     outFile.close();
@@ -34,6 +45,7 @@ void perfsampler::run(){
     cpuSamples.push_back(s);
     *out << s << endl;
 
+    emit samplingDone();
     /*if(logstream.good())
             logstream << s << endl;*/
 }
