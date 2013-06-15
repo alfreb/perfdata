@@ -34,12 +34,20 @@ cpuSample::cpuSample(){
   f.close();
   //sleep(1);
 }
-  
-cpuSample& cpuSample::operator=(cpuSample& s){
-  cpu_name=s.cpu_name;
-  for(int i=0;i<CPU_PROP_COUNT;i++)
-    props[i]=s.props[i];
-  return *this;
+
+cpuSample& cpuSample::becomeCopyOf(const cpuSample &s){
+    cpu_name=s.cpu_name;
+    for(int i=0;i<CPU_PROP_COUNT;i++)
+      props[i]=s.props[i];
+    return *this;
+}
+
+cpuSample::cpuSample(const cpuSample &s){
+    becomeCopyOf(s);
+}
+
+cpuSample& cpuSample::operator=(const cpuSample& s){
+  return becomeCopyOf(s);
 }
   
 unsigned long cpuSample::sumTotalJiffies()

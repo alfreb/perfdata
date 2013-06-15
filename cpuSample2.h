@@ -12,9 +12,13 @@ class cpuSample{
   unsigned long props[CPU_PROP_COUNT];
   static std::string prop_names[CPU_PROP_COUNT]; 
   
+  //For copy constructor and operator=
+  cpuSample &becomeCopyOf(const cpuSample& s);
+
 public:  
   cpuSample();
-  cpuSample& operator=(cpuSample& s);  
+  cpuSample(const cpuSample& s);
+  cpuSample& operator=(const cpuSample& s);
   unsigned long sumTotalJiffies();  
   unsigned long sumWorkJiffies();  
   std::string titles(std::string sep);

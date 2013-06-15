@@ -8,7 +8,7 @@
 #include <QThread>
 #include <vector>
 
-#include "sample.h"
+#include "scalingSample.h"
 #include "outstream.h"
 #include "micromanager.h"
 
@@ -18,15 +18,14 @@ class perfsampler : public QThread{
 
     Q_OBJECT
 
-    std::vector<sample> cpuSamples;
-    std::vector<sample> memSamples;
-    std::vector<sample> qosSamples;
+    std::vector<scalingSample> samples;
 
-    std::ofstream outFile;
+    std::string logfile;
+    std::ofstream logstream;
+
     std::ostream* out;
 
     int sampleRate;
-    std::string logfile;
 
     microManager* manager;
 
@@ -35,11 +34,16 @@ protected:
     virtual void run();
 
 public:
-    perfsampler(microManager* _manager=0,bool log=false);
+    perfsampler(microManager* _manager=0,int _sampleRate=1,bool log=false);
     ~perfsampler();
     int numberOfSamples();
     void printSamples(std::ostream* openStream);
 
+    void dumpData_separateFiles(std::string description); //Required by "plot" for mac
+
+
+    float lastRecordedCpuUsage();
+    float lastRecordedMemUsage();
 
 signals:
     void samplingDone();
