@@ -13,8 +13,8 @@
 using namespace perfdata;
 using namespace std;
 
-perfsampler::perfsampler(bool log):
-    logfile("./perftotals.log")
+perfsampler::perfsampler(microManager *_manager, bool log):
+    logfile("./perftotals.log"),manager(_manager)
 {
     if(log){
         outFile.open(logfile.c_str());
@@ -40,7 +40,7 @@ perfsampler::~perfsampler()
 }
 
 void perfsampler::run(){
-    sample s;
+    sample s(manager?manager->getVmsBooted():-1);
     s.multiSampleCpu();
     cpuSamples.push_back(s);
     *out << s << endl;

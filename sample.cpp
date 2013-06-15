@@ -10,8 +10,9 @@ string sample::sep="\t";
 string sample::header="Time"+sep+"Cpu_%"+sep+"Mem_%";
 
 
-sample::sample(int interval):sampleInterval(interval){
-    x=time(0);
+sample::sample(int _x,int interval):sampleInterval(interval),x(_x){
+    if(x<0)
+        x=time(0);
     sleep(interval);
     cpuSample cpu1;
     y1=cpuSample::pctUsed(cpu,cpu1);
@@ -72,6 +73,7 @@ void sample::multiSampleCpu(int samples){
               << " Stddev: " << stddev
               << std::endl;
 
+    y1=sampleMean;
     y2=stddev;
 
 }

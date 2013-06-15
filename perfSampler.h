@@ -10,6 +10,7 @@
 
 #include "sample.h"
 #include "outstream.h"
+#include "micromanager.h"
 
 namespace perfdata{
 
@@ -27,12 +28,14 @@ class perfsampler : public QThread{
     int sampleRate;
     std::string logfile;
 
+    microManager* manager;
+
 protected:
     //Call with start
     virtual void run();
 
 public:
-    perfsampler(bool log=false);
+    perfsampler(microManager* _manager=0,bool log=false);
     ~perfsampler();
     int numberOfSamples();
     void printSamples(std::ostream* openStream);

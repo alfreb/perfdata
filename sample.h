@@ -32,10 +32,10 @@ class sample
 
 public:
 
-    void multiSampleCpu(int samples=5);
+    void multiSampleCpu(int samples=20);
     void multiSampleMem(int samples=20);
 
-    sample(int interval=1);
+    sample(int _x=-1,int interval=1);
     sample(const sample& s);
 
     sample& operator=(const sample& s);
