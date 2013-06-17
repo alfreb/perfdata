@@ -26,6 +26,7 @@ class perfsampler : public QThread{
     std::ostream* out;
 
     int sampleRate;
+    int sampleCount;
 
     microManager* manager;
 
@@ -34,7 +35,7 @@ protected:
     virtual void run();
 
 public:
-    perfsampler(microManager* _manager=0,int _sampleRate=1,bool log=false);
+    perfsampler(microManager* _manager=0,int _sampleRate=1,int _sampleCount=10,bool log=false);
     ~perfsampler();
     int numberOfSamples();
     void printSamples(std::ostream* openStream);

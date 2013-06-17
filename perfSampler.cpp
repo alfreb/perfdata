@@ -14,9 +14,9 @@
 using namespace perfdata;
 using namespace std;
 
-perfsampler::perfsampler(microManager *_manager,int _sampleRate, bool log):
+perfsampler::perfsampler(microManager *_manager,int _sampleRate,int _sampleCount, bool log):
     logfile("./perfsampler.log"),
-    manager(_manager),sampleRate(_sampleRate)
+    manager(_manager),sampleRate(_sampleRate),sampleCount(_sampleCount)
 {
     if(log){
         /*
@@ -94,7 +94,7 @@ float perfsampler::lastRecordedMemUsage(){
 
 void perfsampler::run(){
     scalingSample s(manager?manager->getVmsBooted():-1,sampleRate);
-    s.multiSampleCpu();
+    s.multiSampleCpu(sampleCount);
     samples.push_back(s);
     *out << s << endl;
 
