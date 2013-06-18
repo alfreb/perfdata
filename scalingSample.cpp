@@ -1,10 +1,13 @@
 #include <vector>
 #include <math.h>
+#include <unistd.h>
 
 #include "scalingSample.h"
 
 using namespace perfdata;
 using namespace std;
+
+
 
 string scalingSample::sep="\t";
 string scalingSample::header="Time"+sep+"Cpu_%"+sep+"Mem_%";

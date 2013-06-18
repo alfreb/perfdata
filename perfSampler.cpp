@@ -14,9 +14,9 @@
 using namespace perfdata;
 using namespace std;
 
-perfsampler::perfsampler(microManager *_manager,int _sampleRate,int _sampleCount, bool log):
+perfsampler::perfsampler(microManager *_manager, int _multiSampleRate, int _multiSampleSize, bool log, int _sampleRate, int _sampleSize,bool _dumpSeparately):
     logfile("./perfsampler.log"),
-    manager(_manager),sampleRate(_sampleRate),sampleCount(_sampleCount)
+    manager(_manager),multiSampleRate(_multiSampleRate),multiSampleSize(_multiSampleSize),sampleRate(_sampleRate),sampleSize(_sampleSize),dumpSeparately(_dumpSeparately)
 {
     if(log){
         /*
@@ -29,6 +29,27 @@ perfsampler::perfsampler(microManager *_manager,int _sampleRate,int _sampleCount
     }else
         out=&cout;
 }
+
+/*
+perfsampler::perfsampler(const perfsampler& p):
+  logfile(p.logfile),
+  manager(p.manager),sampleRate(p.sampleRate),sampleCount(p.sampleCount),out(p.out),logstream(p.logstream){}
+
+perfsampler& perfsampler::operator=(const perfsampler& p)
+{
+  logfile=p.logfile;  
+  manager=p.manager;
+  sampleRate=p.sampleRate;
+  sampleCount=p.sampleCount;
+  out=p.out;
+  logstream=p.logstream;
+  return *this;
+}
+*/
+
+
+
+
 
 int perfsampler::numberOfSamples(){
     return samples.size();
@@ -93,11 +114,24 @@ float perfsampler::lastRecordedMemUsage(){
 
 
 void perfsampler::run(){
-    scalingSample s(manager?manager->getVmsBooted():-1,sampleRate);
-    s.multiSampleCpu(sampleCount);
-    samples.push_back(s);
-    *out << s << endl;
+    do{
+      if(sampleSize>0)
+	cout << "** Sample " << samples.size()+1 << " / "<< sampleSize+samples.size() << endl;
+      scalingSample s(manager?manager->getVmsBooted():-1,multiSampleRate);
+      s.multiSampleCpu(multiSampleSize);
+      samples.push_back(s);
+      *out << s << endl;   
+      cout << endl;
+    }while(sampleSize-- > 1);
+        
+    if(dumpSeparately){
+        cout << "Logging to file, please write a line of comment: " << endl;
+	string comment;
+	getline(cin,comment);
+	dumpData_separateFiles(comment);
+    }
 
+    cout << endl << endl << "** perfSampler thread had a great run. " << endl;
     emit samplingDone();
     /*if(logstream.good())
             logstream << s << endl;*/
