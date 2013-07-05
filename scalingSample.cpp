@@ -16,11 +16,12 @@ string scalingSample::colSep(){
     return sep;
 }
 
-scalingSample::scalingSample(int _vm_count,int interval):
+scalingSample::scalingSample(int _vm_count,int interval,bool _verbose):
     sampleInterval(interval),vm_count(_vm_count),
     leadTime(interval<=2 ? 3: interval),
     cpu_error(-1),
-    mem_error(0)
+    mem_error(0),
+    verbose(_verbose)
 {
     if(vm_count<0)
         vm_count=time(0);
@@ -28,7 +29,8 @@ scalingSample::scalingSample(int _vm_count,int interval):
     sleep(leadTime); //Lead time
     cpuSample cpu1;
     cpu_pct=cpuSample::pctUsed(cpu,cpu1);
-    std::cout << "initialSample: " << cpu_pct << std::endl;
+    if(verbose)
+      std::cout << "initialSample: " << cpu_pct << std::endl;
     mem_pct=mem.pctUsed();
     cpu=cpu1;
 }
@@ -54,7 +56,8 @@ void scalingSample::multiSampleCpu(int samples){
     vector<float> cpuPcts;
     cpuPcts.push_back(cpu_pct);
     double sum(cpu_pct);
-    cout << "Multisampling Cpu" << endl;
+    if(verbose)
+      cout << "Multisampling Cpu" << endl;
     for(int i=1;i<samples;i++){
         sleep(sampleInterval); //firstSample was just taken
         cpuSample cpu_new;
@@ -64,7 +67,8 @@ void scalingSample::multiSampleCpu(int samples){
         cpu=cpu_new;
 
         //std::cout << "\rSample " << i+1 << " / " << samples << " => " << newPct;
-        cout << newPct << sep;
+	if(verbose)
+	  cout << newPct << sep;
         cout.flush();
 
     }
@@ -79,13 +83,13 @@ void scalingSample::multiSampleCpu(int samples){
     }
     double sampleVariance=sumVariances/(samples-1);
     double stddev=sqrt(sampleVariance);
-
-    std::cout << std::endl
-              << "Multisample sum: "<< sum
-              << " Mean: " << sum/samples
-              << " Variance: " << sampleVariance
-              << " Stddev: " << stddev
-              << std::endl;
+    if(verbose)
+      std::cout << std::endl
+		<< "Multisample sum: "<< sum
+		<< " Mean: " << sum/samples
+		<< " Variance: " << sampleVariance
+		<< " Stddev: " << stddev
+		<< std::endl;
 
     cpu_pct=sampleMean;
     cpu_error=stddev;

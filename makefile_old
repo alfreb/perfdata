@@ -6,9 +6,6 @@ static: libperfdata remove_objects
 totals:	cpuSample2 memDataPoint
 	g++ perftotals.cpp cpuSample.o memDataPoint.o -o perftotals
 
-getMultisample: scalingSample cpuSample2 memDataPoint
-	g++ prog_getMultisample.cpp scalingSample.o cpuSample.o memDataPoint.o -o prog_getMultisample
-
 test:	cpuSample2 memDataPoint
 	g++ perfSampler.cpp cpuSample.o memDataPoint.o -o test_perfsampler
 
@@ -22,9 +19,6 @@ dynamic: libperfdata remove_objects
 libperfdata: cpuDataPoint cpuSample memDataPoint
 	g++ -shared -o libperfdata.so *.o
 
-scalingSample: 
-	g++ -c -fPIC scalingSample.cpp -o scalingSample.o
-
 cpuDataPoint: cpuSample
 	g++ -c -fPIC cpuDataPoint.cpp -o cpuDataPoint.o
 
@@ -33,8 +27,6 @@ cpuSample:
 
 cpuSample2:
 	g++ -c -fPIC cpuSample2.cpp -o cpuSample.o
-
-
 
 memDataPoint: 
 	g++ -c -fPIC memDataPoint.cpp -o memDataPoint.o

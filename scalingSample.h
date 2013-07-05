@@ -24,6 +24,8 @@ class scalingSample
     int sampleInterval;
     int leadTime;
 
+    //Makes it look alive, but disrupts outputs
+    bool verbose;
 
     //Aggregated/computed data points
     //Right now, Only these are maintained over operator= or cpyConstruct.
@@ -38,7 +40,7 @@ public:
     void multiSampleCpu(int samples=5);
     void multiSampleMem(int samples=5);
 
-    scalingSample(int _vm_count, int interval=2);
+    scalingSample(int _vm_count, int interval=2,bool verbose=true);
     scalingSample(const scalingSample& s);
 
     scalingSample& operator=(const scalingSample& s);
